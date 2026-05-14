@@ -5,26 +5,12 @@ const ALLOWED = new Set(["creator-starter.html", "creator-pro.html"]);
 
 const kitsDir = path.join(process.cwd(), "content", "kits");
 
-function kitPreviewEnabled(): boolean {
-  return (
-    process.env.NODE_ENV === "development" ||
-    process.env.NEXT_PUBLIC_ENABLE_KIT_HTML_PREVIEW === "true"
-  );
-}
-
 export const dynamic = "force-dynamic";
 
 export async function GET(
   _request: Request,
   context: { params: Promise<{ filename: string }> },
 ) {
-  if (!kitPreviewEnabled()) {
-    return new Response("Not found.", {
-      status: 404,
-      headers: { "content-type": "text/plain; charset=utf-8" },
-    });
-  }
-
   const { filename } = await context.params;
   if (!ALLOWED.has(filename)) {
     return new Response("Not found.", {
