@@ -21,7 +21,7 @@ export default async function CheckoutCompletePage({
   const failed = status === "error" || status === "failed";
 
   return (
-    <main className="min-h-dvh bg-zinc-950 px-6 py-16 text-zinc-100">
+    <main className="min-h-dvh max-w-full overflow-x-hidden bg-zinc-950 px-6 py-16 text-zinc-100">
       <div className="mx-auto max-w-lg rounded-2xl border border-zinc-800 bg-zinc-900/80 p-8">
         <h1 className="text-xl font-semibold text-zinc-50">
           {failed ? "Payment did not complete" : "Return from checkout"}

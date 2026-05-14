@@ -28,7 +28,7 @@ export default async function ExperienceKitPage({
 
   if (kitDeliveryBlockedUnlessDevBypass(useDevBypass)) {
     return (
-      <main className="min-h-dvh bg-zinc-950 px-6 py-16 text-zinc-100">
+      <main className="min-h-dvh max-w-full overflow-x-hidden bg-zinc-950 px-6 py-16 text-zinc-100">
         <div className="mx-auto max-w-lg rounded-2xl border border-zinc-800 bg-zinc-900/80 p-8">
           <h1 className="text-xl font-semibold text-zinc-50">Kit delivery not configured</h1>
           <p className="mt-3 text-sm leading-relaxed text-zinc-400">
@@ -60,7 +60,7 @@ export default async function ExperienceKitPage({
     const oauthNext = whopKitAppPath(experienceId);
     const oauthStartHref = `/api/auth/whop/start?next=${encodeURIComponent(oauthNext)}`;
     return (
-      <main className="min-h-dvh bg-zinc-950 px-6 py-16 text-zinc-100">
+      <main className="min-h-dvh max-w-full overflow-x-hidden bg-zinc-950 px-6 py-16 text-zinc-100">
         <div className="mx-auto max-w-lg rounded-2xl border border-zinc-800 bg-zinc-900/80 p-8">
           <h1 className="text-xl font-semibold text-zinc-50">Sign in to unlock your kit</h1>
           <p className="mt-3 text-sm leading-relaxed text-zinc-400">
@@ -100,7 +100,7 @@ export default async function ExperienceKitPage({
 
   if (!kit.ok) {
     return (
-      <main className="min-h-dvh bg-zinc-950 px-6 py-16 text-zinc-100">
+      <main className="min-h-dvh max-w-full overflow-x-hidden bg-zinc-950 px-6 py-16 text-zinc-100">
         <div className="mx-auto max-w-lg rounded-2xl border border-zinc-800 bg-zinc-900/80 p-8">
           <h1 className="text-xl font-semibold text-zinc-50">Access issue</h1>
           <p className="mt-3 text-sm leading-relaxed text-zinc-400">{kit.message}</p>
@@ -118,7 +118,7 @@ export default async function ExperienceKitPage({
       : `/experiences/${encodeURIComponent(experienceId)}/document`;
 
   return (
-    <main className="min-h-dvh bg-zinc-950 px-6 py-16 text-zinc-100">
+    <main className="min-h-dvh max-w-full overflow-x-hidden bg-zinc-950 px-6 py-16 text-zinc-100">
       <div className="mx-auto max-w-lg rounded-2xl border border-amber-300/30 bg-zinc-900/80 p-8 shadow-lg shadow-amber-500/10">
         <p className="text-xs uppercase tracking-[0.14em] text-amber-200">Delivered</p>
         <h1 className="mt-2 text-2xl font-semibold text-zinc-50">Your kit is ready</h1>

@@ -9,7 +9,7 @@ export default function CheckoutPage() {
   return (
     <Suspense
       fallback={
-        <main className="min-h-dvh bg-zinc-950 px-6 py-16 text-zinc-100">
+        <main className="min-h-dvh max-w-full overflow-x-hidden bg-zinc-950 px-6 py-16 text-zinc-100">
           <div className="mx-auto max-w-xl text-sm text-zinc-500">Loading…</div>
         </main>
       }

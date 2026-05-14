@@ -45,7 +45,7 @@ export default function AdminPage() {
   };
 
   return (
-    <main className="min-h-dvh bg-zinc-950 px-6 py-12 text-zinc-100 sm:px-8">
+    <main className="min-h-dvh max-w-full overflow-x-hidden bg-zinc-950 px-6 py-12 text-zinc-100 sm:px-8">
       <section className="mx-auto w-full max-w-4xl">
         <p className="inline-flex rounded-full border border-zinc-700/80 bg-zinc-900 px-3 py-1 text-xs uppercase tracking-[0.16em] text-zinc-300">
           Admin Panel
@@ -106,7 +106,7 @@ export default function AdminPage() {
           <button
             type="button"
             onClick={resetMetrics}
-            className="mt-4 rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-2 text-sm font-medium text-zinc-200 transition-colors hover:bg-zinc-800"
+            className="mt-4 w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-2 text-sm font-medium text-zinc-200 transition-colors hover:bg-zinc-800 sm:w-auto"
           >
             Reset metrics
           </button>

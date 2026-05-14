@@ -58,7 +58,7 @@ export default function HomePageClient({
   };
 
   return (
-    <main className="relative min-h-dvh overflow-hidden bg-zinc-950 text-zinc-100">
+    <main className="relative min-h-dvh overflow-x-hidden bg-zinc-950 text-zinc-100">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.18),_transparent_60%)]" />
       <section className="mx-auto w-full max-w-6xl px-6 pb-16 pt-20 sm:px-8 lg:pt-28">
         <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr]">
@@ -75,7 +75,7 @@ export default function HomePageClient({
             </p>
             <a
               href="#kits"
-              className="mt-8 inline-flex items-center justify-center rounded-xl bg-amber-300 px-6 py-3 text-sm font-semibold text-zinc-950 transition-colors duration-200 hover:bg-amber-200"
+              className="mt-8 flex w-full items-center justify-center rounded-xl bg-amber-300 px-6 py-3 text-sm font-semibold text-zinc-950 transition-colors duration-200 hover:bg-amber-200 sm:inline-flex sm:w-auto"
             >
               Get Started
             </a>

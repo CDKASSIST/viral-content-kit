@@ -31,7 +31,7 @@ export default function CheckoutEmbedClient({ returnUrl }: CheckoutEmbedClientPr
 
   if (tier !== "starter" && tier !== "pro") {
     return (
-      <main className="min-h-dvh bg-zinc-950 px-6 py-16 text-zinc-100">
+      <main className="min-h-dvh max-w-full overflow-x-hidden bg-zinc-950 px-6 py-16 text-zinc-100">
         <div className="mx-auto max-w-lg rounded-2xl border border-zinc-800 bg-zinc-900/80 p-8">
           <h1 className="text-xl font-semibold text-zinc-50">Pick a kit</h1>
           <p className="mt-3 text-sm text-zinc-400">
@@ -51,7 +51,7 @@ export default function CheckoutEmbedClient({ returnUrl }: CheckoutEmbedClientPr
 
   if (!planId) {
     return (
-      <main className="min-h-dvh bg-zinc-950 px-6 py-16 text-zinc-100">
+      <main className="min-h-dvh max-w-full overflow-x-hidden bg-zinc-950 px-6 py-16 text-zinc-100">
         <div className="mx-auto max-w-lg rounded-2xl border border-zinc-800 bg-zinc-900/80 p-8">
           <h1 className="text-xl font-semibold text-zinc-50">Checkout not configured</h1>
           <p className="mt-3 text-sm text-zinc-400">
@@ -68,7 +68,7 @@ export default function CheckoutEmbedClient({ returnUrl }: CheckoutEmbedClientPr
 
   if (!nextPath) {
     return (
-      <main className="min-h-dvh bg-zinc-950 px-6 py-16 text-zinc-100">
+      <main className="min-h-dvh max-w-full overflow-x-hidden bg-zinc-950 px-6 py-16 text-zinc-100">
         <div className="mx-auto max-w-lg rounded-2xl border border-zinc-800 bg-zinc-900/80 p-8">
           <h1 className="text-xl font-semibold text-zinc-50">Experience not configured</h1>
           <p className="mt-3 text-sm text-zinc-400">
@@ -83,7 +83,7 @@ export default function CheckoutEmbedClient({ returnUrl }: CheckoutEmbedClientPr
   }
 
   return (
-    <main className="min-h-dvh bg-zinc-950 px-6 py-12 text-zinc-100 sm:py-16">
+    <main className="min-h-dvh max-w-full overflow-x-hidden bg-zinc-950 px-6 py-12 text-zinc-100 sm:py-16">
       <div className="mx-auto max-w-xl">
         <p className="text-xs uppercase tracking-[0.14em] text-amber-200">Checkout</p>
         <h1 className="mt-2 text-2xl font-semibold text-zinc-50">{tierLabel}</h1>

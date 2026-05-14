@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Viral Content Creator Kit — Premium</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
@@ -27,13 +27,26 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100%;
+  }
 
   body {
     background: var(--bg);
     color: var(--text);
     font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
     overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  img, video {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
   /* ── GRAIN OVERLAY ── */
@@ -47,12 +60,61 @@
   /* ── NAV ── */
   nav {
     position: sticky; top: 0; z-index: 200;
-    display: flex; align-items: center; justify-content: space-between;
+    display: flex; align-items: center; justify-content: flex-start;
+    flex-wrap: wrap;
     padding: 16px 48px;
     background: rgba(8,8,15,0.9);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border);
+    max-width: 100%;
+    overflow-x: hidden;
   }
+  .nav-panel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-left: 28px;
+    min-width: 0;
+  }
+  .nav-mobile-row {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .nav-burger {
+    display: none;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    cursor: pointer;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .nav-burger span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 1px;
+    background: var(--text);
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  nav.nav-is-open .nav-burger span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  nav.nav-is-open .nav-burger span:nth-child(2) { opacity: 0; }
+  nav.nav-is-open .nav-burger span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+  .btn-nav-whop-mobile { display: none; }
   .nav-brand {
     display: flex; align-items: center; gap: 12px;
   }
@@ -120,6 +182,73 @@
     transition: all 0.2s;
   }
   .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 8px 32px rgba(240,192,80,0.4); }
+
+  @media (max-width: 767px) {
+    nav {
+      padding: 10px 12px;
+    }
+    .nav-brand {
+      flex: 1 1 0;
+      min-width: 0;
+      gap: 8px;
+    }
+    .nav-wordmark { font-size: 13px; }
+    .nav-subtitle { font-size: 9px; }
+    .nav-crown { width: 28px; height: 28px; font-size: 13px; }
+    .nav-mobile-row { display: flex; }
+    .nav-burger { display: inline-flex; }
+    .btn-nav-whop-mobile {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .btn-nav-whop-desktop,
+    .nav-premium-desktop {
+      display: none;
+    }
+    .nav-panel {
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      flex-basis: 100%;
+      width: 100%;
+      margin-left: 0;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      gap: 12px;
+    }
+    nav.nav-is-open .nav-panel {
+      display: flex;
+    }
+    .nav-pills {
+      flex-direction: column;
+      width: 100%;
+      align-items: stretch;
+    }
+    .nav-pill {
+      width: 100%;
+      text-align: left;
+    }
+    .nav-cta {
+      width: 100%;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .nav-panel {
+      display: flex !important;
+    }
+    nav {
+      flex-wrap: nowrap;
+    }
+  }
 
   /* ── HERO ── */
   .hero {
@@ -209,6 +338,26 @@
     cursor: pointer; transition: all 0.2s;
   }
   .btn-outline:hover { border-color: var(--border2); color: var(--gold2); }
+
+  .hero-callout {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 18px;
+    margin-bottom: 16px;
+    background: rgba(240, 192, 80, 0.08);
+    border: 1px solid rgba(240, 192, 80, 0.25);
+    border-radius: 10px;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--gold2);
+    max-width: 100%;
+  }
+  .hero-callout-star {
+    font-size: 18px;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
 
   /* ── VALUE BAR ── */
   .value-bar {
@@ -949,12 +1098,70 @@
     .pricing-grid { grid-template-columns: 1fr; }
     .pricing-card.primary { transform: none; }
   }
+
+  @media (max-width: 767px) {
+    .hero {
+      padding: 36px 16px 28px;
+    }
+    .hero h1 {
+      font-size: clamp(1.75rem, 6.5vw + 0.35rem, 2.25rem);
+    }
+    .hero h2 {
+      font-size: clamp(1.125rem, 3.5vw + 0.5rem, 1.375rem);
+    }
+    .hero-edition {
+      font-size: clamp(16px, 3.5vw + 0.35rem, 1.25rem);
+    }
+    .hero-desc,
+    .hero-callout {
+      font-size: 16px;
+    }
+    .hero-callout {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .value-bar {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .hero-actions .btn-gold-lg,
+    .hero-actions .btn-outline {
+      font-size: 16px;
+    }
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+      max-width: 100%;
+    }
+    .challenge-cal {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+    .timeline-row {
+      flex-direction: column;
+    }
+    .tl-cell {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .tl-cell:last-child {
+      border-bottom: none;
+    }
+    .page-wrap {
+      max-width: 100%;
+      min-width: 0;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+    .content {
+      max-width: 100%;
+      min-width: 0;
+    }
 </style>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
+<nav id="kit-nav">
   <div class="nav-brand">
     <div class="nav-crown">👑</div>
     <div>
@@ -962,15 +1169,32 @@
       <div class="nav-subtitle">Creator Kit — Premium</div>
     </div>
   </div>
-  <div class="nav-pills">
-    <button class="nav-pill active">Overview</button>
-    <button class="nav-pill">Scripts</button>
-    <button class="nav-pill">Challenge</button>
-    <button class="nav-pill">Monetize</button>
+  <div class="nav-mobile-row">
+    <button type="button" class="btn-gold btn-nav-whop-mobile" aria-label="Open Whop checkout">
+      Whop →
+    </button>
+    <button
+      type="button"
+      class="nav-burger"
+      id="nav-burger"
+      aria-expanded="false"
+      aria-controls="nav-panel"
+      aria-label="Open navigation menu"
+    >
+      <span></span><span></span><span></span>
+    </button>
   </div>
-  <div class="nav-cta">
-    <div class="premium-badge">👑 Premium</div>
-    <button class="btn-gold">Get on Whop</button>
+  <div class="nav-panel" id="nav-panel">
+    <div class="nav-pills">
+      <button type="button" class="nav-pill active">Overview</button>
+      <button type="button" class="nav-pill">Scripts</button>
+      <button type="button" class="nav-pill">Challenge</button>
+      <button type="button" class="nav-pill">Monetize</button>
+    </div>
+    <div class="nav-cta">
+      <div class="premium-badge nav-premium-desktop">👑 Premium</div>
+      <button type="button" class="btn-gold btn-nav-whop-desktop">Get on Whop</button>
+    </div>
   </div>
 </nav>
 
@@ -986,8 +1210,8 @@
     <h1>The Viral Content<br/><em>Creator Kit</em></h1>
     <div class="hero-edition">Premium Edition · Instagram · TikTok · Short-Form Content</div>
     <p class="hero-desc">The complete system for building, growing, and monetizing a viral content page using proven short-form strategies, hooks, and scripts. Works for any format — talking videos, POV content, storytelling, or voiceovers — 200+ hooks, 100 scripts, 100 ideas, 30-day challenge, and a full monetization roadmap.</p>
-    <div style="display:inline-flex; align-items:center; gap:10px; padding:10px 18px; background:rgba(240,192,80,0.08); border:1px solid rgba(240,192,80,0.25); border-radius:10px; margin-bottom:16px; font-size:13px; color:var(--gold2); line-height:1.5;">
-      <span style="font-size:16px;">★</span>
+    <div class="hero-callout">
+      <span class="hero-callout-star" aria-hidden="true">★</span>
       <span><strong style="color:var(--gold);">This is not just a voiceover system</strong> — this is a complete blueprint for becoming a content creator.</span>
     </div>
     <div class="hero-actions">
@@ -2260,8 +2484,24 @@ Me: And we begin again.</div>
         const el = document.querySelector(target);
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
+      if (window.matchMedia('(max-width: 767px)').matches) {
+        const rootNav = document.getElementById('kit-nav');
+        const burger = document.getElementById('nav-burger');
+        if (rootNav) rootNav.classList.remove('nav-is-open');
+        if (burger) burger.setAttribute('aria-expanded', 'false');
+      }
     });
   });
+
+  (function initKitNav() {
+    const rootNav = document.getElementById('kit-nav');
+    const burger = document.getElementById('nav-burger');
+    if (!rootNav || !burger) return;
+    burger.addEventListener('click', () => {
+      const open = rootNav.classList.toggle('nav-is-open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  })();
 
   /* ════════════════════════════════════════════
      3. HERO BUTTONS
