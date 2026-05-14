@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import DevBypassBanner from "@/components/DevBypassBanner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,7 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <DevBypassBanner />
+        {children}
+      </body>
     </html>
   );
 }

@@ -8,6 +8,8 @@ type ProductCardProps = {
   badge?: string;
   highlighted?: boolean;
   onButtonClick?: () => void;
+  /** Local dev only: navigates to post-purchase experience with tier query. */
+  devSkipHref?: string;
 };
 
 export default function ProductCard({
@@ -20,7 +22,10 @@ export default function ProductCard({
   badge,
   highlighted = false,
   onButtonClick,
+  devSkipHref,
 }: ProductCardProps) {
+  const isExternal = /^https?:\/\//i.test(href);
+
   return (
     <article
       className={[
@@ -64,6 +69,7 @@ export default function ProductCard({
 
       <a
         href={href}
+        rel={isExternal ? "noopener noreferrer" : undefined}
         onClick={onButtonClick}
         className={[
           "mt-10 inline-flex w-full items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold transition-all duration-200",
@@ -74,6 +80,14 @@ export default function ProductCard({
       >
         {buttonText}
       </a>
+      {devSkipHref ? (
+        <a
+          href={devSkipHref}
+          className="mt-3 inline-flex w-full items-center justify-center rounded-xl border-2 border-dashed border-orange-500/90 bg-orange-950/40 px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.12em] text-orange-200 transition-colors hover:border-orange-400 hover:bg-orange-950/60"
+        >
+          Dev: Skip to Product
+        </a>
+      ) : null}
     </article>
   );
 }

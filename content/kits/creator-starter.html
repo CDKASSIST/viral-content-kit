@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Viral Content Starter Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #0d0d12;
+    --bg2: #13131a;
+    --bg3: #1a1a24;
+    --card: #16161f;
+    --card2: #1e1e2a;
+    --border: rgba(255,255,255,0.07);
+    --purple: #7c3aed;
+    --purple-light: #9d5df5;
+    --purple-glow: rgba(124,58,237,0.25);
+    --green: #22d3a0;
+    --orange: #f97316;
+    --text: #f0f0f8;
+    --muted: #8b8ba0;
+    --tag-bg: rgba(124,58,237,0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 40px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .nav-logo-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--purple-light);
+    box-shadow: 0 0 12px var(--purple-light);
+  }
+  .nav-tabs {
+    display: flex; gap: 4px;
+    background: var(--bg3);
+    border-radius: 10px;
+    padding: 4px;
+    border: 1px solid var(--border);
+  }
+  .nav-tab {
+    padding: 7px 18px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none; background: transparent;
+  }
+  .nav-tab.active, .nav-tab:hover {
+    background: var(--purple);
+    color: #fff;
+  }
+  .nav-right {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .badge {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    background: var(--tag-bg);
+    color: var(--purple-light);
+    border: 1px solid rgba(124,58,237,0.3);
+    letter-spacing: 0.03em;
+  }
+  .btn-upgrade {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 8px;
+    background: var(--purple);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-upgrade:hover { background: var(--purple-light); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 70px 40px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(124,58,237,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--purple-light);
+    background: var(--tag-bg);
+    border: 1px solid rgba(124,58,237,0.3);
+    border-radius: 20px;
+    padding: 5px 14px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 800;
+    line-height: 1.08;
+    max-width: 700px;
+    margin-bottom: 20px;
+  }
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--purple-light), #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    color: var(--muted);
+    font-size: 16px;
+    max-width: 520px;
+    line-height: 1.65;
+    margin-bottom: 36px;
+  }
+  .hero-actions {
+    display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+  }
+  .btn-primary {
+    padding: 13px 28px;
+    background: var(--purple);
+    color: #fff;
+    border: none; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 24px var(--purple-glow);
+  }
+  .btn-primary:hover { background: var(--purple-light); transform: translateY(-1px); }
+  .btn-ghost {
+    padding: 13px 24px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--purple-light); color: var(--text); }
+  .hero-stats {
+    display: flex; gap: 36px; margin-top: 52px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px; font-weight: 800;
+    background: linear-gradient(135deg, var(--text), var(--purple-light));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); font-weight: 400; }
+
+  /* ── LAYOUT ── */
+  .main {
+    padding: 0 40px 80px;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 32px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+  }
+  .sidebar-label {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px; margin-top: 28px;
+  }
+  .sidebar-label:first-child { margin-top: 0; }
+  .sidebar-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 2px;
+    text-decoration: none;
+  }
+  .sidebar-item:hover, .sidebar-item.active {
+    background: var(--card2);
+    color: var(--text);
+  }
+  .sidebar-item.active { color: var(--purple-light); }
+  .sidebar-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+  }
+  .sidebar-item.active .sidebar-dot { background: var(--purple-light); }
+  .sidebar-num {
+    margin-left: auto;
+    font-size: 11px;
+    background: var(--tag-bg);
+    color: var(--purple-light);
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .progress-bar {
+    background: var(--bg3);
+    border-radius: 4px;
+    height: 4px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--purple), var(--purple-light));
+  }
+
+  /* ── CONTENT AREA ── */
+  .content { display: flex; flex-direction: column; gap: 28px; }
+
+  /* ── SECTION CARD ── */
+  .section-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .section-header {
+    padding: 24px 28px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 16px;
+  }
+  .section-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    background: var(--tag-bg);
+    border: 1px solid rgba(124,58,237,0.2);
+    flex-shrink: 0;
+  }
+  .section-meta { flex: 1; }
+  .section-num {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--purple-light);
+    margin-bottom: 4px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px; font-weight: 700;
+  }
+  .section-body { padding: 24px 28px; }
+
+  /* ── FORMULA STEPS ── */
+  .formula-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .formula-step {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .formula-step::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--purple), transparent);
+  }
+  .step-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--purple-light);
+    margin-bottom: 6px;
+  }
+  .step-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .step-time {
+    font-size: 11px; color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .step-example {
+    font-size: 12px; color: var(--muted);
+    font-style: italic; line-height: 1.5;
+    background: var(--card);
+    border-radius: 8px;
+    padding: 10px 12px;
+    border-left: 2px solid var(--purple);
+  }
+
+  /* ── HOOK LIST ── */
+  .hook-categories {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .cat-pill {
+    padding: 5px 14px; border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+    cursor: pointer; border: 1px solid var(--border);
+    background: var(--bg3); color: var(--muted);
+    transition: all 0.2s;
+  }
+  .cat-pill.active, .cat-pill:hover {
+    background: var(--purple);
+    border-color: var(--purple);
+    color: #fff;
+  }
+  .hooks-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .hook-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text);
+    transition: border-color 0.2s;
+    display: flex; align-items: flex-start; gap: 10px;
+    cursor: pointer;
+  }
+  .hook-card:hover { border-color: rgba(124,58,237,0.5); }
+  .hook-arrow {
+    color: var(--purple-light);
+    font-size: 14px;
+    flex-shrink: 0; margin-top: 1px;
+  }
+
+  /* ── SCRIPTS ── */
+  .scripts-list { display: flex; flex-direction: column; gap: 14px; }
+  .script-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .script-item:hover { border-color: rgba(124,58,237,0.4); }
+  .script-header {
+    padding: 16px 20px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .script-num {
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: var(--tag-bg);
+    border: 1px solid rgba(124,58,237,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700;
+    color: var(--purple-light);
+    flex-shrink: 0;
+  }
+  .script-info { flex: 1; }
+  .script-cat {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted);
+    margin-bottom: 3px;
+  }
+  .script-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 14px; font-weight: 700;
+  }
+  .script-hook {
+    font-size: 12px; color: var(--muted);
+    padding: 0 20px 16px;
+    font-style: italic;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .script-hook::before {
+    content: '→';
+    color: var(--green);
+    flex-shrink: 0;
+  }
+  .script-body {
+    padding: 0 20px 16px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    display: none;
+    white-space: pre-line;
+  }
+  .script-item.open .script-body { display: block; }
+  .script-chevron {
+    font-size: 14px; color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .script-item.open .script-chevron { transform: rotate(180deg); }
+
+  /* ── IDEAS GRID ── */
+  .ideas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .idea-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: all 0.2s;
+    cursor: pointer;
+  }
+  .idea-card:hover {
+    border-color: rgba(124,58,237,0.4);
+    background: var(--card2);
+  }
+  .idea-tag {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--purple-light);
+    background: var(--tag-bg);
+    border-radius: 6px;
+    padding: 2px 8px;
+    display: inline-block; margin-bottom: 8px;
+  }
+  .idea-text { font-size: 12px; line-height: 1.55; color: var(--text); }
+
+  /* ── 14-DAY CHALLENGE ── */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+  }
+  .day-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .day-card:hover { border-color: rgba(124,58,237,0.5); }
+  .day-card.done {
+    border-color: rgba(34,211,160,0.3);
+    background: rgba(34,211,160,0.05);
+  }
+  .day-card.active {
+    border-color: var(--purple-light);
+    background: var(--tag-bg);
+    box-shadow: 0 0 20px var(--purple-glow);
+  }
+  .day-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px; font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .day-card.done .day-num { color: var(--green); }
+  .day-card.active .day-num { color: var(--purple-light); }
+  .day-label { font-size: 9px; color: var(--muted); line-height: 1.4; }
+  .day-check {
+    position: absolute; top: 6px; right: 8px;
+    font-size: 10px; color: var(--green);
+  }
+  .challenge-details { margin-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+  .challenge-row {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 14px 16px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+  }
+  .challenge-day-badge {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--tag-bg);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px; font-weight: 800;
+    color: var(--purple-light);
+    flex-shrink: 0;
+  }
+  .challenge-content { flex: 1; }
+  .challenge-title {
+    font-size: 13px; font-weight: 600; margin-bottom: 4px;
+  }
+  .challenge-tip { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ── GROWTH ── */
+  .growth-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .growth-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .growth-icon {
+    font-size: 20px; margin-bottom: 12px;
+  }
+  .growth-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .growth-body { font-size: 12px; color: var(--muted); line-height: 1.65; }
+  .growth-bullets { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+  .growth-bullet {
+    font-size: 12px; color: var(--muted);
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .growth-bullet::before { content: '›'; color: var(--purple-light); font-weight: 700; }
+
+  /* ── UPGRADE CTA ── */
+  .upgrade-card {
+    background: linear-gradient(135deg, var(--card) 0%, rgba(124,58,237,0.1) 100%);
+    border: 1px solid rgba(124,58,237,0.3);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .upgrade-card::before {
+    content: '';
+    position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 300px; height: 200px;
+    background: radial-gradient(ellipse, rgba(124,58,237,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .upgrade-label {
+    display: inline-block;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--purple-light);
+    background: var(--tag-bg);
+    border: 1px solid rgba(124,58,237,0.3);
+    border-radius: 20px; padding: 4px 14px;
+    margin-bottom: 18px;
+  }
+  .upgrade-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 26px; font-weight: 800;
+    margin-bottom: 14px;
+  }
+  .upgrade-sub { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .compare-table {
+    width: 100%; border-collapse: collapse;
+    margin-bottom: 28px;
+    font-size: 13px;
+  }
+  .compare-table th {
+    padding: 10px 16px;
+    background: var(--bg3);
+    text-align: left; font-weight: 600;
+    border-bottom: 1px solid var(--border);
+  }
+  .compare-table th:last-child { color: var(--purple-light); }
+  .compare-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    color: var(--muted);
+  }
+  .compare-table td:first-child { color: var(--text); }
+  .compare-table td:last-child { color: var(--green); font-weight: 600; }
+  .compare-table tr:last-child td { border-bottom: none; }
+
+  /* ── INSIGHT BOX ── */
+  .insight {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 16px;
+    background: rgba(124,58,237,0.08);
+    border: 1px solid rgba(124,58,237,0.2);
+    border-radius: 10px;
+    margin-top: 16px;
+  }
+  .insight-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .insight-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--purple-light); margin-bottom: 4px; }
+  .insight-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ── TIP BOX ── */
+  .tip {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 14px 16px;
+    background: rgba(249,115,22,0.08);
+    border: 1px solid rgba(249,115,22,0.2);
+    border-radius: 10px;
+    margin-top: 16px;
+  }
+  .tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+  .tip-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange); margin-bottom: 4px; }
+  .tip-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* ── RECORDING SECTION ── */
+  .rec-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .rec-card {
+    background: var(--bg3); border: 1px solid var(--border); border-radius: 12px; padding: 20px;
+  }
+  .rec-title {
+    font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700;
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .rec-list { display: flex; flex-direction: column; gap: 8px; }
+  .rec-item {
+    font-size: 12px; color: var(--muted); line-height: 1.55;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  .rec-item::before { content: '·'; color: var(--purple-light); font-size: 18px; line-height: 1; flex-shrink: 0; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+
+  @media (max-width: 900px) {
+    .main { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .formula-grid, .hooks-grid, .ideas-grid, .challenge-grid, .growth-grid, .rec-grid { grid-template-columns: 1fr 1fr; }
+    .challenge-grid { grid-template-columns: repeat(7, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-logo-dot"></div>
+    @codybnxthehond
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active">Starter Kit</button>
+    <button class="nav-tab">Scripts</button>
+    <button class="nav-tab">Challenge</button>
+    <button class="nav-tab">Growth</button>
+  </div>
+  <div class="nav-right">
+    <span class="badge">v2.0</span>
+    <button class="btn-upgrade">Get Full Kit →</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">✦ Sold on Whop</div>
+  <h1>The Viral Content<br/><span>Starter Kit</span></h1>
+  <p class="hero-sub">The beginner-friendly guide to creating viral short-form content on Instagram Reels & TikTok. Works for any format — talking videos, POV content, storytelling, or voiceovers. Everything you need to go from zero to posting.</p>
+  <div style="display:inline-flex; align-items:center; gap:10px; padding:9px 16px; background:rgba(124,58,237,0.1); border:1px solid rgba(124,58,237,0.3); border-radius:10px; margin-bottom:4px; font-size:13px; color:var(--purple-light); line-height:1.5;">
+    <span style="font-size:15px;">★</span>
+    <span><strong style="color:var(--text);">This is not just a voiceover system</strong> — this is a complete blueprint for becoming a content creator.</span>
+  </div>
+  <div class="hero-actions">
+    <button class="btn-primary">Start Day 1 Challenge →</button>
+    <button class="btn-ghost">Browse Scripts</button>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">20</div><div class="stat-label">Viral Hooks</div></div>
+    <div class="stat"><div class="stat-num">20</div><div class="stat-label">Ready-to-Record Scripts</div></div>
+    <div class="stat"><div class="stat-num">30</div><div class="stat-label">Video Ideas</div></div>
+    <div class="stat"><div class="stat-num">14</div><div class="stat-label">Day Challenge</div></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-label">Contents</div>
+    <a class="sidebar-item active" href="#formula">
+      <div class="sidebar-dot"></div>
+      The Formula
+    </a>
+    <a class="sidebar-item" href="#hooks">
+      <div class="sidebar-dot"></div>
+      Hook Library
+      <span class="sidebar-num">20</span>
+    </a>
+    <a class="sidebar-item" href="#scripts">
+      <div class="sidebar-dot"></div>
+      Script Vault
+      <span class="sidebar-num">20</span>
+    </a>
+    <a class="sidebar-item" href="#ideas">
+      <div class="sidebar-dot"></div>
+      Video Ideas
+      <span class="sidebar-num">30</span>
+    </a>
+    <a class="sidebar-item" href="#recording">
+      <div class="sidebar-dot"></div>
+      Recording Basics
+    </a>
+    <a class="sidebar-item" href="#challenge">
+      <div class="sidebar-dot"></div>
+      14-Day Challenge
+    </a>
+    <a class="sidebar-item" href="#growth">
+      <div class="sidebar-dot"></div>
+      Growth Strategy
+    </a>
+    <a class="sidebar-item" href="#upgrade">
+      <div class="sidebar-dot"></div>
+      Upgrade
+    </a>
+
+    <div class="sidebar-label" style="margin-top:32px;">Your Progress</div>
+    <div style="padding: 0 4px;">
+      <div style="font-size:11px; color:var(--muted); margin-bottom:8px;">Challenge: Day 1 / 14</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:7%"></div></div>
+      <div style="font-size:11px; color:var(--muted); margin-top:16px; margin-bottom:8px;">Kit Explored: 0%</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+    </div>
+  </aside>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- SECTION 01: INTRO -->
+    <div class="section-card">
+      <div class="section-header">
+        <div class="section-icon">🎙️</div>
+        <div class="section-meta">
+          <div class="section-num">Section 01</div>
+          <div class="section-title">Introduction to Viral Content</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <p style="font-size:14px; color:var(--muted); line-height:1.7; margin-bottom:16px;">Every piece of short-form content that goes viral follows a set of invisible rules — regardless of format. When someone watches your video and thinks <em>"that is literally my life,"</em> their first instinct is to tag the one person who needs to see this. <strong style="color:var(--text)">That tagging behavior is the algorithm's favourite signal.</strong></p>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:16px;">
+          <div style="background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:14px 16px;">
+            <div style="font-size:20px; margin-bottom:8px;">👁️</div>
+            <div style="font-family:'Syne',sans-serif; font-size:13px; font-weight:700; margin-bottom:4px;">Recognition</div>
+            <div style="font-size:12px; color:var(--muted);">Viewer sees themselves in the situation immediately</div>
+          </div>
+          <div style="background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:14px 16px;">
+            <div style="font-size:20px; margin-bottom:8px;">✅</div>
+            <div style="font-family:'Syne',sans-serif; font-size:13px; font-weight:700; margin-bottom:4px;">Validation</div>
+            <div style="font-size:12px; color:var(--muted);">Names a feeling they had but never said out loud</div>
+          </div>
+          <div style="background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:14px 16px;">
+            <div style="font-size:20px; margin-bottom:8px;">⚡</div>
+            <div style="font-family:'Syne',sans-serif; font-size:13px; font-weight:700; margin-bottom:4px;">Social Urgency</div>
+            <div style="font-size:12px; color:var(--muted);">They have to share it with someone right now</div>
+          </div>
+        </div>
+        <div class="tip">
+          <div class="tip-icon">💡</div>
+          <div>
+            <div class="tip-label">Creator Tip</div>
+            <div class="tip-text">Don't try to be the funniest person on the internet. Try to say the most relatable thing in the most specific way — in any format. Specificity IS the content.</div>
+          </div>
+        </div>
+        <div class="insight">
+          <div class="insight-icon">📈</div>
+          <div>
+            <div class="insight-label">Viral Insight</div>
+            <div class="insight-text">The first 2 seconds of your video determine everything. If the hook doesn't create a question or feeling of recognition instantly, the viewer swipes away.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 02: FORMULA -->
+    <div class="section-card" id="formula">
+      <div class="section-header">
+        <div class="section-icon">⚗️</div>
+        <div class="section-meta">
+          <div class="section-num">Section 02</div>
+          <div class="section-title">The Viral Content Formula</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <p style="font-size:14px; color:var(--muted); line-height:1.7; margin-bottom:20px;">Four parts. Every successful piece of short-form content uses this structure — whether it's a talking video, POV setup, storytelling reel, or voiceover. Learn it once, use it forever.</p>
+        <div class="formula-grid">
+          <div class="formula-step">
+            <div class="step-label">01 — Hook</div>
+            <div class="step-title">Stop the Scroll</div>
+            <div class="step-time">⏱ First 2 seconds</div>
+            <div class="step-example">"POV: You said you'd be ready in 5 minutes. It's been 45."</div>
+          </div>
+          <div class="formula-step">
+            <div class="step-label">02 — Setup</div>
+            <div class="step-title">Set the Scene</div>
+            <div class="step-time">⏱ Seconds 2–10</div>
+            <div class="step-example">"Me, still in a towel, calculating how fast I can physically get dressed."</div>
+          </div>
+          <div class="formula-step">
+            <div class="step-label">03 — Escalation</div>
+            <div class="step-title">Build the Chaos</div>
+            <div class="step-time">⏱ Seconds 10–40</div>
+            <div class="step-example">"Okay — shoes. WHERE ARE MY SHOES. Why do I only have ONE shoe."</div>
+          </div>
+          <div class="formula-step">
+            <div class="step-label">04 — Punchline</div>
+            <div class="step-title">Deliver & Loop</div>
+            <div class="step-time">⏱ Final 5–10 seconds</div>
+            <div class="step-example">"Friend: 'I'm outside.' (video loops back to the beginning)"</div>
+          </div>
+        </div>
+        <div class="tip" style="margin-top:16px;">
+          <div class="tip-icon">💡</div>
+          <div>
+            <div class="tip-label">Creator Tip</div>
+            <div class="tip-text">The escalation is where most beginners cut too short. Give the situation 3–4 beats before you land the punchline. The build-up IS the joke.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 03: HOOKS -->
+    <div class="section-card" id="hooks">
+      <div class="section-header">
+        <div class="section-icon">🪝</div>
+        <div class="section-meta">
+          <div class="section-num">Section 03</div>
+          <div class="section-title">The Starter Hook Library</div>
+        </div>
+        <span class="badge">20 Hooks</span>
+      </div>
+      <div class="section-body">
+        <div class="hook-categories">
+          <button class="cat-pill active">All</button>
+          <button class="cat-pill">Friends</button>
+          <button class="cat-pill">Relationships</button>
+          <button class="cat-pill">Everyday</button>
+          <button class="cat-pill">Work & School</button>
+        </div>
+        <div class="hooks-grid">
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: Your friend says "I'll pay you back" and orders the most expensive thing on the menu.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: Being the responsible one in a completely unhinged friend group.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: Your friend cancels plans and you have to pretend you're not secretly relieved.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: You're everyone's emotional support but nobody ever checks on you.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: They watched your story but haven't replied to your text in 6 hours.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: You finally move on and they decide right now is the perfect time to come back.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: Month 7 of the situationship and there is still no label.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: You check your bank account the day before payday.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: You set 6 alarms and sleep through every single one of them.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: You open the fridge for the fifth time hoping different food appeared.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: You clean your room and feel like a completely new person for exactly 30 minutes.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: You rehearsed the whole conversation in your head and then none of it happened.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: It's 4:58pm on a Friday and your boss sends an email marked "urgent."</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: You forgot you had an assignment due tonight and it's 11:30pm.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: Your alarm goes off and you start negotiating with yourself about whether you actually need to get up.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: The person who didn't study gets a higher grade than you.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: The meeting that could have been one paragraph in an email.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: They say "I've just been really busy" for the fourth week in a row.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: Your friend gives great life advice but their life is an absolute disaster.</div>
+          <div class="hook-card"><span class="hook-arrow">→</span>POV: You're playing it cool but you are absolutely not cool right now.</div>
+        </div>
+        <div class="insight">
+          <div class="insight-icon">🔥</div>
+          <div>
+            <div class="insight-label">Viral Insight</div>
+            <div class="insight-text">The more specific your hook, the more relatable it feels. "POV: you check your bank account" is fine. "POV: you check your account after a weekend and it's $47 with 4 days until payday" is viral.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 04: SCRIPTS -->
+    <div class="section-card" id="scripts">
+      <div class="section-header">
+        <div class="section-icon">📝</div>
+        <div class="section-meta">
+          <div class="section-num">Section 04</div>
+          <div class="section-title">The Starter Script Vault</div>
+        </div>
+        <span class="badge">20 Scripts</span>
+      </div>
+      <div class="section-body">
+        <p style="font-size:13px; color:var(--muted); margin-bottom:18px;">Click any script to expand the full dialogue. Each includes a hook, dialogue, punchline, and video idea.</p>
+        <p style="font-size:12px; color:var(--purple-light); background:rgba(124,58,237,0.08); border:1px solid rgba(124,58,237,0.2); border-radius:8px; padding:10px 14px; margin-bottom:18px;">Each script can be used for talking videos, voiceovers, or on-screen storytelling formats.</p>
+        <div class="scripts-list" id="scriptsList">
+
+          <div class="script-item" onclick="toggleScript(this)">
+            <div class="script-header">
+              <div class="script-num">01</div>
+              <div class="script-info">
+                <div class="script-cat">Friends</div>
+                <div class="script-name">The $20 That Never Comes Back</div>
+              </div>
+              <span class="script-chevron">▾</span>
+            </div>
+            <div class="script-hook">POV: Your friend says "I'll pay you back later" and orders the most expensive thing.</div>
+            <div class="script-body">Me: Hey — do you remember the $20 from—
+Them: Oh my GOD I'm so sorry, I completely forgot, I'll get you back this week I promise.
+Me: ...you said that in 2022.
+Them: Okay but hear me out—
+
+PUNCHLINE: Me watching them add oat milk AND extra syrup to the order.
+VIDEO IDEA: POV shot looking across the table as they order something expensive.</div>
+          </div>
+
+          <div class="script-item" onclick="toggleScript(this)">
+            <div class="script-header">
+              <div class="script-num">02</div>
+              <div class="script-info">
+                <div class="script-cat">Everyday</div>
+                <div class="script-name">The Bank Account Check</div>
+              </div>
+              <span class="script-chevron">▾</span>
+            </div>
+            <div class="script-hook">POV: You check your bank account after a weekend.</div>
+            <div class="script-body">Me: Okay. Let me just quickly check where I—
+(opens app)
+(sees the number)
+Me: Okay. This is... okay. This is fine.
+(closes app)
+(opens app again to make sure it's real)
+Me: It's real.
+
+PUNCHLINE: Me sitting completely still for 5 seconds before slowly setting the phone face down.
+VIDEO IDEA: Close-up of phone, expression of quiet devastation.</div>
+          </div>
+
+          <div class="script-item" onclick="toggleScript(this)">
+            <div class="script-header">
+              <div class="script-num">03</div>
+              <div class="script-info">
+                <div class="script-cat">Relationships</div>
+                <div class="script-name">Left on Read</div>
+              </div>
+              <span class="script-chevron">▾</span>
+            </div>
+            <div class="script-hook">POV: They watched your story but haven't replied to your text in 7 hours.</div>
+            <div class="script-body">Me: Okay so you had time to watch a 15-second clip of someone's dog.
+Me: But my "hey what are you up to" from seven hours ago is too complex to respond to.
+Me: Noted.
+Me: I am completely fine.
+Me: This is fine.
+
+PUNCHLINE: Me refreshing the chat like the answer is going to change.
+VIDEO IDEA: POV of phone screen showing "delivered" sitting there.</div>
+          </div>
+
+          <div class="script-item" onclick="toggleScript(this)">
+            <div class="script-header">
+              <div class="script-num">04</div>
+              <div class="script-info">
+                <div class="script-cat">Work</div>
+                <div class="script-name">The Friday Email</div>
+              </div>
+              <span class="script-chevron">▾</span>
+            </div>
+            <div class="script-hook">POV: 4:58pm on a Friday and you get an email marked urgent.</div>
+            <div class="script-body">Me: (coat on, bag packed, one foot out the door)
+Email subject: URGENT — Need this by Monday.
+Me: ...Monday is 63 hours away.
+Me: I will process this on Monday.
+Me: (does not process it on Monday)
+
+PUNCHLINE: Me slowly putting my coat back on the hook and sitting back down.
+VIDEO IDEA: Reverse slow-motion of leaving being completely undone.</div>
+          </div>
+
+          <div class="script-item" onclick="toggleScript(this)">
+            <div class="script-header">
+              <div class="script-num">05</div>
+              <div class="script-info">
+                <div class="script-cat">Social</div>
+                <div class="script-name">The Wave</div>
+              </div>
+              <span class="script-chevron">▾</span>
+            </div>
+            <div class="script-hook">When you wave at someone and they were definitely not waving at you.</div>
+            <div class="script-body">Me: (big confident wave)
+Them: (confused look)
+Me: (keeping the hand up a little too long)
+Me: (converting the wave into a hair touch)
+Me: (touching hair for four completely unnecessary seconds)
+
+PUNCHLINE: Me fully committed to the hair adjustment, no regrets, moving on.
+VIDEO IDEA: Smooth transition from wave to hair-touch without breaking stride.</div>
+          </div>
+
+          <div class="script-item" onclick="toggleScript(this)">
+            <div class="script-header">
+              <div class="script-num">06</div>
+              <div class="script-info">
+                <div class="script-cat">School</div>
+                <div class="script-name">The 11:30pm Assignment</div>
+              </div>
+              <span class="script-chevron">▾</span>
+            </div>
+            <div class="script-hook">POV: You forgot you had an assignment due tonight. It's 11:30pm.</div>
+            <div class="script-body">Me: (casually opens Canvas)
+(sees 500-point assignment due at midnight)
+Me: Okay.
+Me: (opens Google Docs, types name, double-spaces everything)
+Me: (changes the margin to 1.1 inches)
+Me: (submits a 4-point essay at 11:58)
+Me: I did my best.
+
+PUNCHLINE: Me hitting submit with 90 seconds to spare, feeling like I ran a marathon.
+VIDEO IDEA: Close-up of submit button clicked at 11:58pm.</div>
+          </div>
+
+          <div class="script-item" onclick="toggleScript(this)">
+            <div class="script-header">
+              <div class="script-num">07</div>
+              <div class="script-info">
+                <div class="script-cat">Friends</div>
+                <div class="script-name">Plans Cancelled</div>
+              </div>
+              <span class="script-chevron">▾</span>
+            </div>
+            <div class="script-hook">When your friend cancels plans and you are secretly relieved.</div>
+            <div class="script-body">Friend: I'm so sorry, I can't make it tonight.
+Me out loud: Oh no, that's such a shame! Maybe next week!
+Me internally: THANK YOU.
+Me internally: THANK YOU SO MUCH.
+Me internally: I have been dreading this for four days.
+
+PUNCHLINE: Me immediately changing back into sweatpants at an unreasonable speed.
+VIDEO IDEA: Quick cut to full comfort-mode activated.</div>
+          </div>
+
+          <div class="script-item" onclick="toggleScript(this)">
+            <div class="script-header">
+              <div class="script-num">08</div>
+              <div class="script-info">
+                <div class="script-cat">Family</div>
+                <div class="script-name">The Full Government Name</div>
+              </div>
+              <span class="script-chevron">▾</span>
+            </div>
+            <div class="script-hook">POV: Your mom calls you by all three names.</div>
+            <div class="script-body">Mom: (says all three names)
+Me: ........
+Me: I haven't done anything.
+Me: I don't THINK I've done anything.
+Me: Wait. Oh no. The thing from last Thursday.
+Me: I did do a thing.
+
+PUNCHLINE: Me doing a rapid mental audit of every decision I've made this week.
+VIDEO IDEA: Eyes moving side to side quickly as the checklist runs.</div>
+          </div>
+
+          <div class="script-item" onclick="toggleScript(this)">
+            <div class="script-header">
+              <div class="script-num">09</div>
+              <div class="script-info">
+                <div class="script-cat">Relationships</div>
+                <div class="script-name">Month 7 of the Situationship</div>
+              </div>
+              <span class="script-chevron">▾</span>
+            </div>
+            <div class="script-hook">POV: Month 7 of the situationship and there is still no label.</div>
+            <div class="script-body">Me: So what are we exactly?
+Them: I just don't want to put a label on things right now.
+Me: Totally. Yeah. I also don't need labels.
+Also me at 2am: I NEED ONE LABEL.
+Also me at 2am: JUST ONE.
+Also me at 2am: A VERY SPECIFIC LABEL.
+
+PUNCHLINE: Me looking completely unbothered on the outside while fully spiralling.
+VIDEO IDEA: Calm face with chaotic inner monologue text overlay.</div>
+          </div>
+
+          <div class="script-item" onclick="toggleScript(this)">
+            <div class="script-header">
+              <div class="script-num">10</div>
+              <div class="script-info">
+                <div class="script-cat">Everyday</div>
+                <div class="script-name">The 6 Alarms</div>
+              </div>
+              <span class="script-chevron">▾</span>
+            </div>
+            <div class="script-hook">When you set 6 alarms and sleep through every single one of them.</div>
+            <div class="script-body">6:00am — (snooze)
+6:09am — (snooze)
+6:18am — (snooze)
+6:27am — (snooze)
+6:36am — (snooze)
+6:45am — (finally wakes up)
+Me: Why didn't the alarm go off?
+The alarms: WE HAVE BEEN GOING OFF.
+
+PUNCHLINE: Me scrolling through a graveyard of dismissed alarms with a confused expression.
+VIDEO IDEA: Phone showing 6 dismissed alarms — betrayed energy.</div>
+          </div>
+
+        </div>
+        <div style="text-align:center; margin-top:16px; padding:16px; background:var(--bg3); border:1px solid var(--border); border-radius:10px; font-size:13px; color:var(--muted);">
+          + 10 more scripts in the full kit (The Meeting, The Phone Call, Clean Room Effect, The Therapist Friend, The Curve, They Came Back, The Comparison, The Fridge, The Raise, The Goodbye Walk)
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 05: IDEAS -->
+    <div class="section-card" id="ideas">
+      <div class="section-header">
+        <div class="section-icon">💡</div>
+        <div class="section-meta">
+          <div class="section-num">Section 05</div>
+          <div class="section-title">30 Content Ideas</div>
+        </div>
+        <span class="badge">30 Ideas</span>
+      </div>
+      <div class="section-body">
+        <p style="font-size:13px; color:var(--muted); margin-bottom:18px;">Quick-fire content prompts — adaptable to any format. The more personal it feels, the more universal it becomes.</p>
+        <div class="ideas-grid">
+          <div class="idea-card"><div class="idea-tag">Friends</div><div class="idea-text">The friend who one-ups every single story you tell</div></div>
+          <div class="idea-card"><div class="idea-tag">Friends</div><div class="idea-text">Being the only person in the group who actually shows up on time</div></div>
+          <div class="idea-card"><div class="idea-tag">Friends</div><div class="idea-text">Your friend gives perfect advice but their life is in shambles</div></div>
+          <div class="idea-card"><div class="idea-tag">Friends</div><div class="idea-text">The group chat that goes radio-silent right after drama</div></div>
+          <div class="idea-card"><div class="idea-tag">Friends</div><div class="idea-text">Making plans with six people and nobody confirms anything</div></div>
+          <div class="idea-card"><div class="idea-tag">Relationships</div><div class="idea-text">When they post a sad quote the day after saying they're totally fine</div></div>
+          <div class="idea-card"><div class="idea-tag">Relationships</div><div class="idea-text">The talking stage that has somehow been going on for four months</div></div>
+          <div class="idea-card"><div class="idea-tag">Relationships</div><div class="idea-text">Pretending to be unbothered when you are extremely bothered</div></div>
+          <div class="idea-card"><div class="idea-tag">Relationships</div><div class="idea-text">Finally saying what you actually feel after weeks of saying nothing</div></div>
+          <div class="idea-card"><div class="idea-tag">Work</div><div class="idea-text">When you realise you're significantly better at the job than your manager</div></div>
+          <div class="idea-card"><div class="idea-tag">Work</div><div class="idea-text">Monday morning energy vs. Friday at 4:59pm</div></div>
+          <div class="idea-card"><div class="idea-tag">Work</div><div class="idea-text">When the job description and the actual job have nothing in common</div></div>
+          <div class="idea-card"><div class="idea-tag">Work</div><div class="idea-text">When a client needs something "quick" and it is not quick</div></div>
+          <div class="idea-card"><div class="idea-tag">School</div><div class="idea-text">When the test looks nothing like the study guide</div></div>
+          <div class="idea-card"><div class="idea-tag">School</div><div class="idea-text">The group project where one person did everything and everyone knows it</div></div>
+          <div class="idea-card"><div class="idea-tag">School</div><div class="idea-text">When someone says "I didn't study at all" and scores a 94</div></div>
+          <div class="idea-card"><div class="idea-tag">Everyday</div><div class="idea-text">The big Sunday plan that disappears by Monday morning</div></div>
+          <div class="idea-card"><div class="idea-tag">Everyday</div><div class="idea-text">The 5 stages of losing something when you're already late</div></div>
+          <div class="idea-card"><div class="idea-tag">Everyday</div><div class="idea-text">Reading a self-improvement book and feeling transformed for 48 hours</div></div>
+          <div class="idea-card"><div class="idea-tag">Everyday</div><div class="idea-text">The morning you planned vs. the morning that actually happened</div></div>
+          <div class="idea-card"><div class="idea-tag">Social</div><div class="idea-text">Being a people pleaser and slowly, painfully learning to stop</div></div>
+          <div class="idea-card"><div class="idea-tag">Social</div><div class="idea-text">Showing up somewhere and immediately wanting to leave</div></div>
+          <div class="idea-card"><div class="idea-tag">Social</div><div class="idea-text">The performance of being okay when you are not okay</div></div>
+          <div class="idea-card"><div class="idea-tag">Social</div><div class="idea-text">When you realise you've been called the wrong name for three months</div></div>
+          <div class="idea-card"><div class="idea-tag">Social</div><div class="idea-text">Your online personality vs. who you are in person</div></div>
+          <div class="idea-card"><div class="idea-tag">Friends</div><div class="idea-text">Your friend's life is a disaster but the advice they give you is perfect</div></div>
+          <div class="idea-card"><div class="idea-tag">Relationships</div><div class="idea-text">Your friends notice something about your relationship before you do</div></div>
+          <div class="idea-card"><div class="idea-tag">Work</div><div class="idea-text">The performance review where everyone performs performing</div></div>
+          <div class="idea-card"><div class="idea-tag">School</div><div class="idea-text">Being asked to speak in front of the class with zero warning</div></div>
+          <div class="idea-card"><div class="idea-tag">Everyday</div><div class="idea-text">Paying bills for the first time and understanding your parents better</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 06: RECORDING -->
+    <div class="section-card" id="recording">
+      <div class="section-header">
+        <div class="section-icon">🎬</div>
+        <div class="section-meta">
+          <div class="section-num">Section 06</div>
+          <div class="section-title">Recording & Filming Basics</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="rec-grid">
+          <div class="rec-card">
+            <div class="rec-title">🎙️ Clean Audio</div>
+            <div class="rec-list">
+              <div class="rec-item">Use wired earbuds with a microphone — cuts background noise dramatically</div>
+              <div class="rec-item">Record in a small, soft space — a closet kills echo</div>
+              <div class="rec-item">Turn off fans and A/C — constant hum is nearly impossible to remove</div>
+              <div class="rec-item">Do multiple takes — record each section 2–3 times</div>
+              <div class="rec-item">Speak naturally — a conversation, not a performance</div>
+            </div>
+          </div>
+          <div class="rec-card">
+            <div class="rec-title">✂️ CapCut Editing</div>
+            <div class="rec-list">
+              <div class="rec-item">Auto-captions — turn these on first, every video</div>
+              <div class="rec-item">Keep cuts sharp — no wasted frames after each beat</div>
+              <div class="rec-item">Jump cuts add energy and feel native to the platform</div>
+              <div class="rec-item">Trending audio at low volume helps distribution</div>
+              <div class="rec-item">Watch it back — if you cringe at a moment, cut it</div>
+            </div>
+          </div>
+          <div class="rec-card">
+            <div class="rec-title">📺 Captions</div>
+            <div class="rec-list">
+              <div class="rec-item">Captions are not optional — most people watch without sound</div>
+              <div class="rec-item">Bold, large text placed in center or lower third</div>
+              <div class="rec-item">Customise size and colour on key punchline words</div>
+            </div>
+          </div>
+          <div class="rec-card">
+            <div class="rec-title">⏱️ Comedic Timing</div>
+            <div class="rec-list">
+              <div class="rec-item">1-second pause before the punchline amplifies the laugh</div>
+              <div class="rec-item">Speed up delivery during escalation to build urgency</div>
+              <div class="rec-item">Drop your voice on the final punchline so it fully lands</div>
+              <div class="rec-item">Cut the video at the exact right moment — two seconds too long kills the joke</div>
+            </div>
+          </div>
+        </div>
+        <div class="tip" style="margin-top:14px;">
+          <div class="tip-icon">💡</div>
+          <div>
+            <div class="tip-label">Creator Tip</div>
+            <div class="tip-text">Don't wait to buy better equipment. Your phone is enough to start — for talking videos, POV setups, and voiceover audio alike. Consistency beats perfection every single time.</div>
+          </div>
+        </div>
+        <div class="insight">
+          <div class="insight-icon">🔁</div>
+          <div>
+            <div class="insight-label">Viral Insight — The Loop Trick</div>
+            <div class="insight-text">End your video with a line that connects back to the opening hook. The viewer watches again without realising it. Replays are one of the highest-value signals the algorithm uses to push your content.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 07: CHALLENGE -->
+    <div class="section-card" id="challenge">
+      <div class="section-header">
+        <div class="section-icon">🗓️</div>
+        <div class="section-meta">
+          <div class="section-num">Section 07</div>
+          <div class="section-title">The 14-Day Creator Challenge</div>
+        </div>
+        <span class="badge">14 Days</span>
+      </div>
+      <div class="section-body">
+        <p style="font-size:13px; color:var(--muted); margin-bottom:20px;">14 days. 14 videos. No more waiting, overthinking, or excuses. Each day has a clear direction.</p>
+        <div class="challenge-grid">
+          <div class="day-card active"><div class="day-num">1</div><div class="day-label">Introduction</div></div>
+          <div class="day-card"><div class="day-num">2</div><div class="day-label">Monday Energy</div></div>
+          <div class="day-card"><div class="day-num">3</div><div class="day-label">Friend Scenario</div></div>
+          <div class="day-card"><div class="day-num">4</div><div class="day-label">Work / School</div></div>
+          <div class="day-card"><div class="day-num">5</div><div class="day-label">Confession</div></div>
+          <div class="day-card"><div class="day-num">6</div><div class="day-label">Relationships</div></div>
+          <div class="day-card"><div class="day-num">7</div><div class="day-label">Behind the Scenes</div></div>
+          <div class="day-card"><div class="day-num">8</div><div class="day-label">Everyday Awkward</div></div>
+          <div class="day-card"><div class="day-num">9</div><div class="day-label">Trending Audio</div></div>
+          <div class="day-card"><div class="day-num">10</div><div class="day-label">Full Escalation</div></div>
+          <div class="day-card"><div class="day-num">11</div><div class="day-label">Family Content</div></div>
+          <div class="day-card"><div class="day-num">12</div><div class="day-label">Loop Video</div></div>
+          <div class="day-card"><div class="day-num">13</div><div class="day-label">Overthinking</div></div>
+          <div class="day-card"><div class="day-num">14</div><div class="day-label">Wrap-Up</div></div>
+        </div>
+
+        <div class="challenge-details">
+          <div class="challenge-row">
+            <div class="challenge-day-badge">01</div>
+            <div class="challenge-content">
+              <div class="challenge-title">Your Introduction</div>
+              <div class="challenge-tip">POV: You decided to start making videos. Introduce yourself and your page. Every creator page needs an origin video. Keep it short and genuine.</div>
+            </div>
+          </div>
+          <div class="challenge-row">
+            <div class="challenge-day-badge">02</div>
+            <div class="challenge-content">
+              <div class="challenge-title">Monday Energy</div>
+              <div class="challenge-tip">POV: It's Monday and your motivation hasn't arrived yet. Internal monologue format. Relatability at its simplest — post before noon.</div>
+            </div>
+          </div>
+          <div class="challenge-row">
+            <div class="challenge-day-badge">03</div>
+            <div class="challenge-content">
+              <div class="challenge-title">A Friend Scenario</div>
+              <div class="challenge-tip">Pick one friend type and run the full Hook–Setup–Escalation–Punchline formula. Use a hook from Section 3 or adapt a script from Section 4.</div>
+            </div>
+          </div>
+          <div class="challenge-row">
+            <div class="challenge-day-badge">07</div>
+            <div class="challenge-content">
+              <div class="challenge-title">Behind the Scenes</div>
+              <div class="challenge-tip">Show how you record or edit your videos. Be honest about the process. People love seeing the reality behind content — builds trust and connection.</div>
+            </div>
+          </div>
+          <div class="challenge-row">
+            <div class="challenge-day-badge">12</div>
+            <div class="challenge-content">
+              <div class="challenge-title">Your First Loop Video</div>
+              <div class="challenge-tip">Design a video so the punchline connects back to the opening hook. Test the loop — watch it play on repeat. If it feels natural, you nailed it.</div>
+            </div>
+          </div>
+          <div class="challenge-row">
+            <div class="challenge-day-badge">14</div>
+            <div class="challenge-content">
+              <div class="challenge-title">The 2-Week Wrap-Up</div>
+              <div class="challenge-tip">POV: 14 days of posting content — here's what I actually learned. Be honest. What worked? What flopped? This video builds real audience loyalty.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip" style="margin-top:14px;">
+          <div class="tip-icon">💡</div>
+          <div>
+            <div class="tip-label">Creator Tip</div>
+            <div class="tip-text">After Day 14, look back at all 14 videos. Which performed best? What did it have in common with your second-best? That answer is your content strategy for the next 30 days.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 08: GROWTH -->
+    <div class="section-card" id="growth">
+      <div class="section-header">
+        <div class="section-icon">📈</div>
+        <div class="section-meta">
+          <div class="section-num">Section 08</div>
+          <div class="section-title">How to Grow a Content Page</div>
+        </div>
+      </div>
+      <div class="section-body">
+        <p style="font-size:13px; color:var(--muted); margin-bottom:20px;">Growth isn't luck. It follows patterns — on any platform, in any format. The creators who build real audiences post smarter and double down on what works.</p>
+        <div class="growth-grid">
+          <div class="growth-card">
+            <div class="growth-icon">📅</div>
+            <div class="growth-title">Post Consistently</div>
+            <div class="growth-body">The algorithm rewards creators who give it content. Every video is a lottery ticket. Aim for 4–5 videos per week for the first 60 days.</div>
+          </div>
+          <div class="growth-card">
+            <div class="growth-icon">🪝</div>
+            <div class="growth-title">Improve Your Hooks Constantly</div>
+            <div class="growth-body">The fastest way to improve is to write better hooks. If a video underperforms, look at the first two seconds first.</div>
+            <div class="growth-bullets">
+              <div class="growth-bullet">Specific hooks outperform general ones every time</div>
+              <div class="growth-bullet">Best hooks create a question only the video can answer</div>
+              <div class="growth-bullet">Test formats: talking head, POV, voiceover, storytelling, checklist</div>
+            </div>
+          </div>
+          <div class="growth-card">
+            <div class="growth-icon">🔁</div>
+            <div class="growth-title">Find Your Winning Format</div>
+            <div class="growth-body">Once you find a video that performs significantly better, make 10 variations of it. Same structure, same energy — different situation.</div>
+          </div>
+          <div class="growth-card">
+            <div class="growth-icon">📊</div>
+            <div class="growth-title">Study Your Data</div>
+            <div class="growth-body">After 30 days of posting, look at your top 5 videos and ask:</div>
+            <div class="growth-bullets">
+              <div class="growth-bullet">What hook format did I use?</div>
+              <div class="growth-bullet">What category was the content?</div>
+              <div class="growth-bullet">How long was the video? Did it loop?</div>
+              <div class="growth-bullet">What time and day did I post?</div>
+            </div>
+          </div>
+        </div>
+        <div class="insight" style="margin-top:14px;">
+          <div class="insight-icon">📈</div>
+          <div>
+            <div class="insight-label">Growth Timeline</div>
+            <div class="insight-text"><strong style="color:var(--text)">Month 1:</strong> Build the habit. Reps matter more than results. <strong style="color:var(--text)">Month 2:</strong> Find the patterns. Do more of what works. <strong style="color:var(--text)">Month 3:</strong> Refine the hook. Test different openings. <strong style="color:var(--text)">Month 6:</strong> Own a clear format and have at least one breakout video.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UPGRADE CTA -->
+    <div class="upgrade-card" id="upgrade">
+      <div class="upgrade-label">✦ Next Step</div>
+      <div class="upgrade-title">The Full Creator Kit</div>
+      <div class="upgrade-sub">You now have the foundation. Ready to go further? The Full Content Creator Kit is the complete blueprint from Day 1 to full-time creator — for any format, any platform.</div>
+
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Starter Kit</th>
+            <th>Full Creator Kit</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Viral Hooks</td><td style="color:var(--muted)">20</td><td>200+</td></tr>
+          <tr><td>Content Scripts</td><td style="color:var(--muted)">20</td><td>100</td></tr>
+          <tr><td>Video Ideas</td><td style="color:var(--muted)">30</td><td>100</td></tr>
+          <tr><td>Posting Challenge</td><td style="color:var(--muted)">14 Days</td><td>30 Days</td></tr>
+          <tr><td>Editing Templates</td><td style="color:var(--muted)">Basics</td><td>10 viral styles</td></tr>
+          <tr><td>Advanced Growth</td><td style="color:var(--muted)">—</td><td>Full Chapter</td></tr>
+          <tr><td>Monetization Guide</td><td style="color:var(--muted)">—</td><td>5 Revenue Streams</td></tr>
+          <tr><td>Creator Action Plan</td><td style="color:var(--muted)">—</td><td>5-Phase Blueprint</td></tr>
+        </tbody>
+      </table>
+
+      <button class="btn-primary" style="font-size:15px; padding:15px 40px;">Get the Full Creator Kit on Whop →</button>
+      <div style="margin-top:14px; font-size:13px; font-weight:600; color:var(--purple-light);">Pick your format. Follow the system. Build your content page.</div>
+      <div style="margin-top:8px; font-size:12px; color:var(--muted)">Available now alongside this product on Whop · @codybnxthehond</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  /* ── EXTERNAL LINKS ── */
+  const STARTER_WHOP_URL = 'https://whop.com/codybnxthehond-the-blue-print/test-a9-a8a6/';
+  const PRO_WHOP_URL = 'https://whop.com/codybnxthehond-the-blue-print/blue-print-design-kit/';
+  const INSTAGRAM_URL = 'https://www.instagram.com/codybnxthehond/';
+  function getPurchaseUrlForCurrentKit() {
+    return CURRENT_KIT === 'creator' ? PRO_WHOP_URL : STARTER_WHOP_URL;
+  }
+
+  const ACCESS_STORAGE_KEY = 'vck_access_tier';
+  const CURRENT_KIT = 'starter';
+
+  function normalizeTier(value) {
+    if (!value) return null;
+    const tier = String(value).trim().toLowerCase();
+    if (tier === 'pro') return 'creator';
+    return tier === 'starter' || tier === 'creator' ? tier : null;
+  }
+
+  function persistPurchasedTier() {
+    const params = new URLSearchParams(window.location.search);
+    const incomingTier = normalizeTier(
+      params.get('tier') ||
+        params.get('product') ||
+        params.get('kit') ||
+        params.get('purchase') ||
+        params.get('dev_kit_tier')
+    );
+    if (incomingTier) localStorage.setItem(ACCESS_STORAGE_KEY, incomingTier);
+  }
+
+  function canAccessCurrentKit(purchasedTier) {
+    if (!purchasedTier) return false;
+    if (CURRENT_KIT === 'starter') return purchasedTier === 'starter' || purchasedTier === 'creator';
+    return purchasedTier === 'creator';
+  }
+
+  function renderLockedScreen() {
+    document.body.innerHTML = `
+      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#0d0d12;color:#f0f0f8;font-family:'DM Sans',sans-serif;">
+        <div style="max-width:560px;width:100%;border:1px solid rgba(255,255,255,0.08);background:#16161f;border-radius:16px;padding:28px;">
+          <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#9d5df5;margin-bottom:10px;">Access Required</div>
+          <h1 style="font-family:'Syne',sans-serif;font-size:28px;line-height:1.2;margin:0 0 12px;">This product is locked.</h1>
+          <p style="color:#a7a7bc;line-height:1.7;margin:0 0 18px;">This link only opens after purchase. If you've already bought, open your access link again with your purchased product tier in the URL (for example <code style="color:#f0f0f8">?product=starter</code> or <code style="color:#f0f0f8">?product=pro (or ?product=creator)</code>).</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button id="buy-now" style="padding:11px 18px;border:none;border-radius:9px;background:#7c3aed;color:#fff;font-weight:600;cursor:pointer;">Buy on Whop</button>
+            <button id="restore-access" style="padding:11px 18px;border:1px solid rgba(255,255,255,0.12);border-radius:9px;background:transparent;color:#f0f0f8;font-weight:600;cursor:pointer;">I already purchased</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const buyBtn = document.getElementById('buy-now');
+    if (buyBtn) buyBtn.addEventListener('click', () => window.open(getPurchaseUrlForCurrentKit(), '_blank'));
+
+    const restoreBtn = document.getElementById('restore-access');
+    if (restoreBtn) {
+      restoreBtn.addEventListener('click', () => {
+        const value = normalizeTier(window.prompt('Enter your product tier: starter or pro'));
+        if (!value) return;
+        localStorage.setItem(ACCESS_STORAGE_KEY, value);
+        window.location.reload();
+      });
+    }
+  }
+
+  persistPurchasedTier();
+  const purchasedTier = normalizeTier(localStorage.getItem(ACCESS_STORAGE_KEY));
+  if (!canAccessCurrentKit(purchasedTier)) {
+    renderLockedScreen();
+    throw new Error('Access denied for this product page.');
+  }
+
+  /* ── HOOK DATA (20 starter hooks with categories) ── */
+  const STARTER_HOOKS = [
+    { cat: 'Friends',      text: 'POV: Your friend says "I\'ll pay you back" and orders the most expensive thing on the menu.' },
+    { cat: 'Friends',      text: 'POV: Being the responsible one in a completely unhinged friend group.' },
+    { cat: 'Friends',      text: 'POV: Your friend cancels plans and you have to pretend you\'re not secretly relieved.' },
+    { cat: 'Friends',      text: 'POV: You\'re everyone\'s emotional support but nobody ever checks on you.' },
+    { cat: 'Relationships',text: 'POV: They watched your story but haven\'t replied to your text in 6 hours.' },
+    { cat: 'Relationships',text: 'POV: You finally move on and they decide right now is the perfect time to come back.' },
+    { cat: 'Relationships',text: 'POV: Month 7 of the situationship and there is still no label.' },
+    { cat: 'Relationships',text: 'POV: They say "I\'ve just been really busy" for the fourth week in a row.' },
+    { cat: 'Relationships',text: 'POV: Your friend gives great life advice but their life is an absolute disaster.' },
+    { cat: 'Relationships',text: 'POV: You\'re playing it cool but you are absolutely not cool right now.' },
+    { cat: 'Everyday',     text: 'POV: You check your bank account the day before payday.' },
+    { cat: 'Everyday',     text: 'POV: You set 6 alarms and sleep through every single one of them.' },
+    { cat: 'Everyday',     text: 'POV: You open the fridge for the fifth time hoping different food appeared.' },
+    { cat: 'Everyday',     text: 'POV: You clean your room and feel like a completely new person for exactly 30 minutes.' },
+    { cat: 'Everyday',     text: 'POV: You rehearsed the whole conversation in your head and then none of it happened.' },
+    { cat: 'Work & School',text: 'POV: It\'s 4:58pm on a Friday and your boss sends an email marked "urgent."' },
+    { cat: 'Work & School',text: 'POV: You forgot you had an assignment due tonight and it\'s 11:30pm.' },
+    { cat: 'Work & School',text: 'POV: Your alarm goes off and you start negotiating with yourself about whether you actually need to get up.' },
+    { cat: 'Work & School',text: 'POV: The person who didn\'t study gets a higher grade than you.' },
+    { cat: 'Work & School',text: 'POV: The meeting that could have been one paragraph in an email.' },
+  ];
+
+  /* ── 14-DAY CHALLENGE DATA ── */
+  const CHALLENGE_DATA = {
+    1:  { theme: 'Your Introduction',       tip: 'POV: You decided to start making videos. Introduce yourself and your page. Every creator page needs an origin video. Keep it short and genuine.' },
+    2:  { theme: 'Monday Energy',           tip: 'POV: It\'s Monday and your motivation hasn\'t arrived yet. Internal monologue format. Relatability at its simplest — post before noon.' },
+    3:  { theme: 'A Friend Scenario',       tip: 'Pick one friend type and run the full Hook–Setup–Escalation–Punchline formula. Use a hook from Section 3 or adapt a script from Section 4.' },
+    4:  { theme: 'Work or School',          tip: 'One specific, relatable moment from work or school. Keep it tight and honest. The more specific the situation, the more universal it feels.' },
+    5:  { theme: 'The Confession',          tip: '"Things I\'ve done this week that I will not be explaining." List format, quick cuts. Short, snappy, and immediately shareable. Aim for 3–4 confessions maximum.' },
+    6:  { theme: 'Relationships',           tip: 'POV: The talking stage, week 7 — no label, full commitment to denial. Internal monologue format. Let the escalation run long on this one.' },
+    7:  { theme: 'Behind the Scenes',       tip: 'Show how you record or edit your videos. Be honest about the process. People love seeing the reality behind content — builds trust and connection.' },
+    8:  { theme: 'Everyday Awkward',        tip: 'One specific awkward moment from everyday life. Run the full four-part formula. Pick something that happened to you recently — real stories perform better.' },
+    9:  { theme: 'Trending Audio',          tip: 'Find a trending sound on TikTok or Instagram Reels and build a piece of short-form content around it — any format works. Trending audio gets algorithmic pushes — use it while it\'s active.' },
+    10: { theme: 'The Full Escalation',     tip: 'Pick a situation and let it escalate completely — give every beat its full run. Don\'t cut the escalation short. The build is the joke. Let it go all the way.' },
+    11: { theme: 'Family Content',          tip: 'A family scenario: the full-name call, the cousin comparison, the unsolicited advice. Family content is some of the most universal material you have.' },
+    12: { theme: 'Your First Loop Video',   tip: 'Design a video specifically so the punchline connects back to the opening hook. Test the loop. Watch it play on repeat. If it feels natural, you nailed it.' },
+    13: { theme: 'The Overthinking Video',  tip: '"Things I\'ve overthought this week." Checklist format with quick reaction cuts. Short, punchy, and deeply relatable. Aim for 5 items maximum.' },
+    14: { theme: 'The 2-Week Wrap-Up',      tip: 'POV: 14 days of posting content and here\'s what I actually learned. Be honest. What worked? What flopped? What surprised you? This video builds real audience loyalty.' },
+  };
+
+  /* ════════════════════════════════════════════
+     1. EXTERNAL LINK BUTTONS
+  ════════════════════════════════════════════ */
+  // "Get Full Kit" nav button → Whop
+  document.querySelectorAll('.btn-upgrade').forEach(btn => {
+    btn.addEventListener('click', () => window.open(getPurchaseUrlForCurrentKit(), '_blank'));
+  });
+
+  // "Get the Full Creator Kit on Whop" CTA button → Whop
+  document.querySelectorAll('.btn-primary').forEach(btn => {
+    if (btn.textContent.includes('Full Creator Kit') || btn.textContent.includes('Whop')) {
+      btn.addEventListener('click', () => window.open(getPurchaseUrlForCurrentKit(), '_blank'));
+    }
+  });
+
+  // Whop text link in upgrade footer
+  document.querySelectorAll('[style*="color:var(--muted)"]').forEach(el => {
+    if (el.textContent.includes('@codybnxthehond')) {
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', () => window.open(INSTAGRAM_URL, '_blank'));
+    }
+  });
+
+  /* ════════════════════════════════════════════
+     2. NAV TABS → SCROLL TO SECTIONS
+  ════════════════════════════════════════════ */
+  const NAV_TARGETS = {
+    'Starter Kit': '#formula',
+    'Scripts':     '#scripts',
+    'Challenge':   '#challenge',
+    'Growth':      '#growth',
+  };
+
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    tab.addEventListener('click', function () {
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      const target = NAV_TARGETS[this.textContent.trim()];
+      if (target) {
+        const el = document.querySelector(target);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  /* ════════════════════════════════════════════
+     3. HERO BUTTONS
+  ════════════════════════════════════════════ */
+  document.querySelectorAll('.btn-primary').forEach(btn => {
+    if (btn.textContent.includes('Day 1 Challenge')) {
+      btn.addEventListener('click', () => {
+        document.querySelector('#challenge').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  });
+
+  document.querySelectorAll('.btn-ghost').forEach(btn => {
+    if (btn.textContent.includes('Browse Scripts')) {
+      btn.addEventListener('click', () => {
+        document.querySelector('#scripts').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => {
+          document.querySelectorAll('.script-item').forEach((item, i) => {
+            if (i < 3) item.classList.add('open');
+          });
+        }, 600);
+      });
+    }
+  });
+
+  /* ════════════════════════════════════════════
+     4. SIDEBAR LINKS → SCROLL + AUTO-HIGHLIGHT
+  ════════════════════════════════════════════ */
+  document.querySelectorAll('.sidebar-item').forEach(item => {
+    item.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      this.classList.add('active');
+      const href = this.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Auto-highlight sidebar + nav tab on scroll
+  const sectionIds = ['formula','hooks','scripts','ideas','recording','challenge','growth','upgrade'];
+  const scrollObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        document.querySelectorAll('.sidebar-item').forEach(item => {
+          item.classList.toggle('active', item.getAttribute('href') === '#' + id);
+        });
+        // Sync nav tabs
+        const tabMap = {
+          formula: 'Starter Kit', hooks: 'Starter Kit',
+          scripts: 'Scripts', ideas: 'Scripts',
+          recording: 'Scripts',
+          challenge: 'Challenge',
+          growth: 'Growth', upgrade: 'Growth',
+        };
+        document.querySelectorAll('.nav-tab').forEach(t => {
+          t.classList.toggle('active', t.textContent.trim() === tabMap[id]);
+        });
+        // Update progress bar label
+        updateProgressLabel(id);
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+
+  sectionIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) scrollObserver.observe(el);
+  });
+
+  /* ════════════════════════════════════════════
+     5. SCRIPT CARDS — TOGGLE + COPY BUTTON
+  ════════════════════════════════════════════ */
+  function toggleScript(el) {
+    el.classList.toggle('open');
+    updateProgress();
+  }
+
+  // Add copy button to each script header
+  document.querySelectorAll('.script-item').forEach(item => {
+    const header = item.querySelector('.script-header');
+    const copyBtn = document.createElement('button');
+    copyBtn.innerHTML = '⎘';
+    copyBtn.title = 'Copy hook';
+    copyBtn.style.cssText = `
+      background: var(--tag-bg); border: 1px solid rgba(124,58,237,0.3);
+      color: var(--purple-light); border-radius: 6px; padding: 4px 9px;
+      font-size: 13px; cursor: pointer; margin-right: 6px;
+      transition: all 0.18s; flex-shrink: 0;
+    `;
+    copyBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const hookEl = item.querySelector('.script-hook');
+      const nameEl = item.querySelector('.script-name');
+      const text = hookEl ? hookEl.textContent.trim() : nameEl.textContent.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        copyBtn.innerHTML = '✓';
+        copyBtn.style.color = 'var(--green)';
+        setTimeout(() => { copyBtn.innerHTML = '⎘'; copyBtn.style.color = 'var(--purple-light)'; }, 1800);
+      });
+    });
+    const chevron = header.querySelector('.script-chevron');
+    header.insertBefore(copyBtn, chevron);
+  });
+
+  /* ════════════════════════════════════════════
+     6. HOOK CATEGORY FILTER — ACTUALLY FILTERS
+  ════════════════════════════════════════════ */
+  function renderHooks(category) {
+    const grid = document.querySelector('.hooks-grid');
+    if (!grid) return;
+    const filtered = category === 'All'
+      ? STARTER_HOOKS
+      : STARTER_HOOKS.filter(h => h.cat === category);
+
+    grid.innerHTML = filtered.map(h => `
+      <div class="hook-card" onclick="copyHook(this)" style="cursor:pointer; position:relative;">
+        <span class="hook-arrow">→</span>
+        <span class="hook-text">${h.text}</span>
+        <span class="hook-copy-hint" style="position:absolute; bottom:8px; right:10px; font-size:10px; color:var(--muted); opacity:0; transition:opacity 0.2s;">copy</span>
+      </div>
+    `).join('');
+
+    grid.querySelectorAll('.hook-card').forEach(card => {
+      card.addEventListener('mouseenter', () => card.querySelector('.hook-copy-hint').style.opacity = '1');
+      card.addEventListener('mouseleave', () => card.querySelector('.hook-copy-hint').style.opacity = '0');
+    });
+  }
+
+  function copyHook(el) {
+    const text = el.querySelector('.hook-text').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const hint = el.querySelector('.hook-copy-hint');
+      hint.textContent = '✓ copied!';
+      hint.style.color = 'var(--green)';
+      hint.style.opacity = '1';
+      setTimeout(() => { hint.textContent = 'copy'; hint.style.color = 'var(--muted)'; }, 1800);
+    });
+  }
+
+  document.querySelectorAll('.cat-pill').forEach(pill => {
+    pill.addEventListener('click', function () {
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      this.classList.add('active');
+      renderHooks(this.textContent.trim());
+    });
+  });
+
+  renderHooks('All');
+
+  /* ════════════════════════════════════════════
+     7. DAY CARDS → DETAIL PANEL + MARK DONE
+  ════════════════════════════════════════════ */
+  let completedDays = new Set();
+
+  // Insert detail panel after the challenge grid
+  const challengeGrid = document.querySelector('.challenge-grid');
+  const dayDetailPanel = document.createElement('div');
+  dayDetailPanel.id = 'day-detail';
+  dayDetailPanel.style.cssText = `
+    background: var(--tag-bg); border: 1px solid rgba(124,58,237,0.25);
+    border-radius: 12px; padding: 16px 20px;
+    margin: 14px 0 0; display: none;
+  `;
+  challengeGrid.after(dayDetailPanel);
+
+  document.querySelectorAll('.day-card').forEach(card => {
+    card.addEventListener('click', function () {
+      document.querySelectorAll('.day-card').forEach(c => c.classList.remove('active'));
+      this.classList.add('active');
+
+      const dayNum = parseInt(this.querySelector('.day-num').textContent);
+      const data = CHALLENGE_DATA[dayNum];
+      if (!data) return;
+
+      dayDetailPanel.style.display = 'block';
+      dayDetailPanel.innerHTML = `
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+          <div style="width:30px; height:30px; border-radius:8px; background:var(--card2); border:1px solid rgba(124,58,237,0.3); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:13px; font-weight:800; color:var(--purple-light); flex-shrink:0;">${dayNum}</div>
+          <div>
+            <div style="font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--purple-light); margin-bottom:2px;">Day ${dayNum} of 14</div>
+            <div style="font-family:'Syne',sans-serif; font-size:15px; font-weight:700;">${data.theme}</div>
+          </div>
+        </div>
+        <div style="font-size:13px; color:var(--muted); line-height:1.65; margin-bottom:12px;">${data.tip}</div>
+        <button id="done-btn-${dayNum}" onclick="markDayDone(${dayNum})" style="padding:6px 16px; background:var(--card2); border:1px solid rgba(124,58,237,0.3); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; color:var(--purple-light); cursor:pointer; transition:all 0.2s;">
+          ${completedDays.has(dayNum) ? '✓ Completed' : 'Mark as Done'}
+        </button>
+      `;
+    });
+  });
+
+  function markDayDone(dayNum) {
+    completedDays.add(dayNum);
+    const cards = document.querySelectorAll('.day-card');
+    const card = cards[dayNum - 1];
+    if (card) {
+      card.classList.add('done');
+      card.style.borderColor = 'rgba(34,211,160,0.4)';
+      card.style.background = 'rgba(34,211,160,0.06)';
+      card.querySelector('.day-num').style.color = 'var(--green)';
+    }
+    const btn = document.getElementById(`done-btn-${dayNum}`);
+    if (btn) {
+      btn.textContent = '✓ Completed';
+      btn.style.color = 'var(--green)';
+      btn.style.borderColor = 'rgba(34,211,160,0.3)';
+    }
+    updateProgress();
+  }
+
+  /* ════════════════════════════════════════════
+     8. PROGRESS BARS — live update
+  ════════════════════════════════════════════ */
+  function updateProgress() {
+    const dayCount    = completedDays.size;
+    const scriptCount = document.querySelectorAll('.script-item.open').length;
+    const totalSections = sectionIds.length;
+
+    // Challenge label + bar
+    const challengeLabel = document.querySelector('.sidebar [style*="margin-bottom:8px"]');
+    const bars = document.querySelectorAll('.progress-fill');
+    if (challengeLabel) challengeLabel.textContent = `Challenge: Day ${Math.max(1, dayCount)} / 14`;
+    if (bars[0]) bars[0].style.width = Math.min(100, (dayCount / 14) * 100) + '%';
+
+    // Kit explored bar
+    const exploredLabel = document.querySelector('.sidebar [style*="margin-top:16px"]');
+    const explored = Math.round((scriptCount / 10) * 100);
+    if (exploredLabel) exploredLabel.textContent = `Kit Explored: ${Math.min(100, explored)}%`;
+    if (bars[1]) bars[1].style.width = Math.min(100, explored) + '%';
+  }
+
+  function updateProgressLabel(sectionId) {
+    // Just call update to keep things fresh
+    updateProgress();
+  }
+
+  /* ════════════════════════════════════════════
+     9. SCROLL-TO-TOP BUTTON
+  ════════════════════════════════════════════ */
+  const topBtn = document.createElement('button');
+  topBtn.innerHTML = '↑';
+  topBtn.style.cssText = `
+    position: fixed; bottom: 32px; right: 32px; z-index: 999;
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--tag-bg); border: 1px solid rgba(124,58,237,0.3);
+    color: var(--purple-light); font-size: 18px; font-weight: 700;
+    cursor: pointer; display: none; align-items: center; justify-content: center;
+    transition: all 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  `;
+  topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  topBtn.addEventListener('mouseenter', () => { topBtn.style.background = 'rgba(124,58,237,0.25)'; topBtn.style.transform = 'translateY(-2px)'; });
+  topBtn.addEventListener('mouseleave', () => { topBtn.style.background = 'var(--tag-bg)'; topBtn.style.transform = 'none'; });
+  document.body.appendChild(topBtn);
+
+  window.addEventListener('scroll', () => {
+    topBtn.style.display = window.scrollY > 400 ? 'flex' : 'none';
+  });
+
+  /* ════════════════════════════════════════════
+     10. UPGRADE CTA — "Get Full Kit" → Whop
+         "@codybnxthehond" text → Instagram
+  ════════════════════════════════════════════ */
+  // Wire the big CTA button in upgrade section
+  document.querySelectorAll('.btn-primary').forEach(btn => {
+    if (btn.textContent.includes('Get the Full Creator Kit')) {
+      btn.addEventListener('click', () => window.open(getPurchaseUrlForCurrentKit(), '_blank'));
+    }
+  });
+
+</script>
+</body>
+</html>

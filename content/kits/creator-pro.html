@@ -2045,8 +2045,76 @@ Me: And we begin again.</div>
 
 <script>
   /* ── WHOP LINK ── */
-  const WHOP_URL = 'https://whop.com/codybnxthehond/';
+  const STARTER_WHOP_URL = 'https://whop.com/codybnxthehond-the-blue-print/test-a9-a8a6/';
+  const PRO_WHOP_URL = 'https://whop.com/codybnxthehond-the-blue-print/blue-print-design-kit/';
   const INSTAGRAM_URL = 'https://www.instagram.com/codybnxthehond/';
+  function getPurchaseUrlForCurrentKit() {
+    return CURRENT_KIT === 'creator' ? PRO_WHOP_URL : STARTER_WHOP_URL;
+  }
+
+  const ACCESS_STORAGE_KEY = 'vck_access_tier';
+  const CURRENT_KIT = 'creator';
+
+  function normalizeTier(value) {
+    if (!value) return null;
+    const tier = String(value).trim().toLowerCase();
+    if (tier === 'pro') return 'creator';
+    return tier === 'starter' || tier === 'creator' ? tier : null;
+  }
+
+  function persistPurchasedTier() {
+    const params = new URLSearchParams(window.location.search);
+    const incomingTier = normalizeTier(
+      params.get('tier') ||
+        params.get('product') ||
+        params.get('kit') ||
+        params.get('purchase') ||
+        params.get('dev_kit_tier'),
+    );
+    if (incomingTier) localStorage.setItem(ACCESS_STORAGE_KEY, incomingTier);
+  }
+
+  function canAccessCurrentKit(purchasedTier) {
+    if (!purchasedTier) return false;
+    if (CURRENT_KIT === 'starter') return purchasedTier === 'starter' || purchasedTier === 'creator';
+    return purchasedTier === 'creator';
+  }
+
+  function renderLockedScreen() {
+    document.body.innerHTML = `
+      <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#08080f;color:#ede8f0;font-family:'Outfit',sans-serif;">
+        <div style="max-width:600px;width:100%;border:1px solid rgba(255,220,100,0.2);background:#111120;border-radius:16px;padding:30px;">
+          <div style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#ffd97a;margin-bottom:10px;">Premium Access Required</div>
+          <h1 style="font-family:'Playfair Display',serif;font-size:32px;line-height:1.15;margin:0 0 12px;">This Creator Kit is locked.</h1>
+          <p style="color:#a09ab0;line-height:1.7;margin:0 0 18px;">Only customers who purchased the Pro tier can open this page. If you've already bought, open your access link again with <code style="color:#ede8f0">?product=pro</code> (or <code style="color:#ede8f0">?product=creator</code>) in the URL.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button id="buy-now" style="padding:11px 18px;border:none;border-radius:9px;background:linear-gradient(135deg,#f0c050,#ffd97a);color:#0a0810;font-weight:700;cursor:pointer;">Buy on Whop</button>
+            <button id="restore-access" style="padding:11px 18px;border:1px solid rgba(255,220,100,0.3);border-radius:9px;background:transparent;color:#ede8f0;font-weight:600;cursor:pointer;">I already purchased</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    const buyBtn = document.getElementById('buy-now');
+    if (buyBtn) buyBtn.addEventListener('click', () => window.open(getPurchaseUrlForCurrentKit(), '_blank'));
+
+    const restoreBtn = document.getElementById('restore-access');
+    if (restoreBtn) {
+      restoreBtn.addEventListener('click', () => {
+        const value = normalizeTier(window.prompt('Enter your product tier: starter or pro'));
+        if (!value) return;
+        localStorage.setItem(ACCESS_STORAGE_KEY, value);
+        window.location.reload();
+      });
+    }
+  }
+
+  persistPurchasedTier();
+  const purchasedTier = normalizeTier(localStorage.getItem(ACCESS_STORAGE_KEY));
+  if (!canAccessCurrentKit(purchasedTier)) {
+    renderLockedScreen();
+    throw new Error('Access denied for this product page.');
+  }
 
   /* ── HOOK DATA (all 7 categories) ── */
   const ALL_HOOKS = [
@@ -2160,7 +2228,7 @@ Me: And we begin again.</div>
   /* ════════════════════════════════════════════
      1. WHOP / EXTERNAL LINK BUTTONS
   ════════════════════════════════════════════ */
-  function openWhop() { window.open(WHOP_URL, '_blank'); }
+  function openWhop() { window.open(getPurchaseUrlForCurrentKit(), '_blank'); }
   function openInstagram() { window.open(INSTAGRAM_URL, '_blank'); }
 
   // All "Get on Whop" / "Get the Full Creator Kit" buttons

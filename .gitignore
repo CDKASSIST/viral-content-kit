@@ -5,6 +5,11 @@
 
 # testing
 /coverage
+/test-results/
+.playwright-browsers/
+
+# cursor
+.cursor/
 
 # next.js
 /.next/
