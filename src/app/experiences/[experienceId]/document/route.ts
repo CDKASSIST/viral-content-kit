@@ -35,7 +35,7 @@ export async function GET(
 
   if (!auth) {
     return new Response(
-      "Missing Whop session. Open your kit from the Whop app (embedded view) after purchase.",
+      "Missing Whop session. Sign in with Whop from this site (after checkout) or open your kit from the Whop app.",
       {
         status: 401,
         headers: { "content-type": "text/plain; charset=utf-8" },

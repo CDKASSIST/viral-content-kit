@@ -10,6 +10,9 @@ type ProductCardProps = {
   onButtonClick?: () => void;
   /** Local dev only: navigates to post-purchase experience with tier query. */
   devSkipHref?: string;
+  /** Optional secondary link (e.g. hosted Whop checkout). */
+  secondaryHref?: string;
+  secondaryLabel?: string;
 };
 
 export default function ProductCard({
@@ -23,6 +26,8 @@ export default function ProductCard({
   highlighted = false,
   onButtonClick,
   devSkipHref,
+  secondaryHref,
+  secondaryLabel = "Buy on Whop.com",
 }: ProductCardProps) {
   const isExternal = /^https?:\/\//i.test(href);
 
@@ -80,6 +85,15 @@ export default function ProductCard({
       >
         {buttonText}
       </a>
+      {secondaryHref ? (
+        <a
+          href={secondaryHref}
+          rel="noopener noreferrer"
+          className="mt-3 block text-center text-xs font-medium text-zinc-500 underline-offset-4 hover:text-zinc-300 hover:underline"
+        >
+          {secondaryLabel}
+        </a>
+      ) : null}
       {devSkipHref ? (
         <a
           href={devSkipHref}

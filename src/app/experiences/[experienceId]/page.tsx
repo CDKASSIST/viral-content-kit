@@ -2,7 +2,7 @@ import Link from "next/link";
 import { headers } from "next/headers";
 import { parseDevKitBypassTier } from "@/lib/dev-payment-bypass";
 import { resolveAuthorizedKit } from "@/lib/kit-delivery";
-import { resolveWhopKitAppUrl } from "@/lib/whop-site-url";
+import { whopKitAppPath, resolveWhopKitAppUrl } from "@/lib/whop-site-url";
 import {
   getWhop,
   kitDeliveryBlockedUnlessDevBypass,
@@ -57,18 +57,25 @@ export default async function ExperienceKitPage({
     const whopKitAppUrl = resolveWhopKitAppUrl(
       process.env.NEXT_PUBLIC_WHOP_EXPERIENCE_ID?.trim() ?? "",
     );
+    const oauthNext = whopKitAppPath(experienceId);
+    const oauthStartHref = `/api/auth/whop/start?next=${encodeURIComponent(oauthNext)}`;
     return (
       <main className="min-h-dvh bg-zinc-950 px-6 py-16 text-zinc-100">
         <div className="mx-auto max-w-lg rounded-2xl border border-zinc-800 bg-zinc-900/80 p-8">
-          <h1 className="text-xl font-semibold text-zinc-50">Sign in through Whop</h1>
+          <h1 className="text-xl font-semibold text-zinc-50">Sign in to unlock your kit</h1>
           <p className="mt-3 text-sm leading-relaxed text-zinc-400">
-            Open this page from your purchase inside Whop (the embedded app view) so your
-            session can be verified. The public marketing site cannot unlock your kit on its
-            own.
+            If you paid on this site, sign in with Whop so we can verify your purchase. If you opened this app from
+            inside Whop, your session may already be attached automatically.
           </p>
+          <a
+            href={oauthStartHref}
+            className="mt-8 inline-flex w-full items-center justify-center rounded-xl bg-amber-300 px-5 py-3 text-sm font-semibold text-zinc-950 transition-colors hover:bg-amber-200"
+          >
+            Sign in with Whop
+          </a>
           {whopKitAppUrl ? (
             <p className="mt-4 text-sm leading-relaxed text-zinc-500">
-              Configure Whop so the kit app opens{" "}
+              If your app is embedded in Whop, configure the experience path to{" "}
               <a href={whopKitAppUrl} className="font-medium text-amber-200 underline-offset-4 hover:underline">
                 this URL
               </a>{" "}

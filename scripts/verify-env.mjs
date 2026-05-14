@@ -19,6 +19,17 @@ const DELIVERY_HINTS = [
   "WHOP_STARTER_PRODUCT_ID",
 ];
 
+/** Embedded checkout + OAuth on your domain */
+const EMBED_OAUTH_HINTS = [
+  "NEXT_PUBLIC_APP_URL",
+  "NEXT_PUBLIC_WHOP_EXPERIENCE_ID",
+  "NEXT_PUBLIC_WHOP_STARTER_PLAN_ID",
+  "NEXT_PUBLIC_WHOP_PRO_PLAN_ID",
+  "NEXT_PUBLIC_WHOP_APP_ID",
+  "WHOP_CLIENT_SECRET",
+  "WHOP_KIT_SESSION_SECRET",
+];
+
 function parseEnvLocal(text) {
   /** @type {Record<string, string>} */
   const out = {};
@@ -38,6 +49,15 @@ function isHttpsUrl(value) {
   try {
     const u = new URL(value);
     return u.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+function isHttpOrHttpsAppUrl(value) {
+  try {
+    const u = new URL(value);
+    return u.protocol === "https:" || u.protocol === "http:";
   } catch {
     return false;
   }
@@ -77,6 +97,22 @@ for (const key of DELIVERY_HINTS) {
   if (value === undefined || value === "") {
     console.warn(
       `verify-env: ${key} is empty — authenticated kit pages under /experiences/ will not work until set.`,
+    );
+  }
+}
+
+const appUrl = vars.NEXT_PUBLIC_APP_URL;
+if (appUrl && !isHttpOrHttpsAppUrl(appUrl)) {
+  console.warn(
+    `verify-env: NEXT_PUBLIC_APP_URL should be a full http(s) URL (got: ${JSON.stringify(appUrl)})`,
+  );
+}
+
+for (const key of EMBED_OAUTH_HINTS) {
+  const value = vars[key];
+  if (value === undefined || value === "") {
+    console.warn(
+      `verify-env: ${key} is empty — embedded checkout + OAuth kit unlock on your domain will not work until set.`,
     );
   }
 }

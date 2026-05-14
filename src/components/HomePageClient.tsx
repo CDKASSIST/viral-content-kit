@@ -19,11 +19,12 @@ const proFeatures = [
 ];
 
 type HomePageClientProps = {
+  /** Hosted Whop store / checkout (optional secondary). */
   starterWhopLink: string;
   proWhopLink: string;
   devBypassStarterHref?: string;
   devBypassProHref?: string;
-  /** After Whop checkout: open this URL from inside Whop (embedded app) to unlock the HTML kit. */
+  /** Direct link to the kit experience on this site (after checkout + Whop sign-in). */
   whopKitAppUrl?: string;
 };
 
@@ -121,7 +122,8 @@ export default function HomePageClient({
             features={starterFeatures}
             price="R250"
             buttonText="Buy Starter"
-            href={starterWhopLink}
+            href="/kits/creator-starter.html"
+            secondaryHref={starterWhopLink}
             onButtonClick={() => handleClick("starterClicks", setStarterClicks)}
             devSkipHref={devBypassStarterHref}
           />
@@ -132,7 +134,8 @@ export default function HomePageClient({
             features={proFeatures}
             price="R500"
             buttonText="Get Full Access"
-            href={proWhopLink}
+            href="/kits/creator-pro.html"
+            secondaryHref={proWhopLink}
             badge="Most Popular"
             highlighted
             onButtonClick={() => handleClick("proClicks", setProClicks)}
@@ -141,20 +144,21 @@ export default function HomePageClient({
         </div>
 
         <p className="mt-8 text-center text-sm text-zinc-500">
-          After you pay on Whop, open your order there and launch the kit app attached to
-          your product. That view verifies your purchase and opens the correct HTML kit.
+          The main buttons open the full shipped HTML kits so you can walk a client through the content. To purchase,
+          use <span className="text-zinc-400">Buy on Whop.com</span> under each card (or on-site checkout when you wire
+          it back in).
         </p>
 
         {whopKitAppUrl ? (
           <div className="mt-6 rounded-2xl border border-amber-300/25 bg-amber-300/5 px-5 py-4 text-center sm:text-left">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-amber-200">
-              Whop kit app URL (paste into Whop → your app → Experience path)
+              Kit URL on this site (bookmark after sign-in)
             </p>
             <p className="mt-2 text-sm text-zinc-300">
-              Customers should open this path <span className="text-zinc-400">(from Whop after purchase)</span>{" "}
-              so their session is verified, then they tap <span className="font-medium text-zinc-200">Open HTML kit</span>{" "}
-              for the full <span className="font-medium text-zinc-200">creator-starter.html</span> or{" "}
-              <span className="font-medium text-zinc-200">creator-pro.html</span> file.
+              After checkout you will complete Whop sign-in, then land here to open{" "}
+              <span className="font-medium text-zinc-200">Open HTML kit</span> for{" "}
+              <span className="font-medium text-zinc-200">creator-starter.html</span> or{" "}
+              <span className="font-medium text-zinc-200">creator-pro.html</span> depending on your plan.
             </p>
             <a
               href={whopKitAppUrl}
